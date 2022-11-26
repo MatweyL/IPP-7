@@ -30,6 +30,55 @@
     </main>
  <script>
 
+        function update_car(id) {
+            let title = document.getElementById("title" + id).value;
+            let brand = document.getElementById("brand" + id).value;
+            let price = document.getElementById("price" + id).value;
+            let age = document.getElementById("age" + id).value;
+            (async function () {
+            const data = JSON.stringify({
+              query: `mutation UpdateCar{
+                updateCar(
+                    id: ${id}
+                    title: \"${title}\"
+                    brand: \"${brand}\"
+                    price: ${price}
+                    age: ${age}
+                    ) {
+                success
+                errors
+                }
+              }`,
+            });
+            await fetch(
+              '/graphql',
+              {
+                method: 'post',
+                body: data,
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Content-Length': data.length
+                },
+              }
+            );
+          })();
+        }
+
+        function create_car_field(name, car, type) {
+            car_id = car["id"];
+            let root = document.createElement('div');
+            let label = document.createElement('label');
+            let input = document.createElement('input');
+            input.id = name + car_id;
+            input.type = type;
+            input.className += " form-control"
+            input.attributes.required = "required";
+            label.for = input.id;
+            root.appendChild(label);
+            root.appendChild(input);
+            return root;
+        }
+
         function create_car_div(car) {
             let root = document.createElement('div');
             root.className += " card card-body mt-3";
