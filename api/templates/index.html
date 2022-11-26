@@ -48,6 +48,18 @@
             root.appendChild(brand);
             root.appendChild(price);
             root.appendChild(age);
+
+
+            let delete_button = document.createElement('button');
+            delete_button.innerText = "Удалить";
+            delete_button.className += " btn btn-danger";
+            delete_button.type = "submit";
+            delete_button.addEventListener('click', function(){
+                delete_car(car["id"]);
+                window.location.reload();
+            });
+            root.appendChild(delete_button);
+
             return root;
         }
 
@@ -89,6 +101,31 @@
         }
       })();
 
+    function delete_car(id) {
+        (async function () {
+        const data = JSON.stringify({
+          query: `mutation DeleteCar{
+            deleteCar(
+                id: ${id}
+                ) {
+            success
+            errors
+            }
+          }`,
+        });
+        await fetch(
+          '/graphql',
+          {
+            method: 'post',
+            body: data,
+            headers: {
+              'Content-Type': 'application/json',
+              'Content-Length': data.length
+            },
+          }
+        );
+      })();
+    }
 
 
     function create_car() {
@@ -110,8 +147,7 @@
             }
           }`,
         });
-
-        const response = await fetch(
+        await fetch(
           '/graphql',
           {
             method: 'post',
@@ -122,8 +158,6 @@
             },
           }
         );
-
-        const json = await response.json();
       })();
     }
     </script>
