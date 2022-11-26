@@ -120,40 +120,6 @@
             return root;
         }
 
-        function create_car_div(car) {
-            let root = document.createElement('div');
-            root.className += " card card-body mt-3";
-            let id = document.createElement('div');
-            let title = document.createElement('div');
-            let brand = document.createElement('div');
-            let price = document.createElement('div');
-            let age = document.createElement('div');
-            id.innerText = "id: " + car['id'];
-            title.innerText = "Описание: " + car['title'];
-            brand.innerText = "Марка: " + car['brand'];
-            price.innerText = "Цена: " + car['price'];
-            age.innerText = "Возраст: " + car['age'];
-            root.appendChild(id);
-            root.appendChild(title);
-            root.appendChild(brand);
-            root.appendChild(price);
-            root.appendChild(age);
-
-
-            let delete_button = document.createElement('button');
-            delete_button.innerText = "Удалить";
-            delete_button.className += " btn btn-danger";
-            delete_button.type = "submit";
-            delete_button.addEventListener('click', function(){
-                delete_car(car["id"]);
-                window.location.reload();
-            });
-            root.appendChild(delete_button);
-
-            return root;
-        }
-
-
       (async function () {
         const data = JSON.stringify({
           query: `{
