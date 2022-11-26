@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 
@@ -11,5 +11,5 @@ db = SQLAlchemy(app)
 
 
 @app.route('/')
-def hello():
-    return 'Learn GraphQL'
+def index():
+    return render_template("index.html")

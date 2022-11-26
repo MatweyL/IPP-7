@@ -6,7 +6,6 @@ from .models import Car
 def listCars_resolver(obj, info):
     try:
         cars = [car.to_dict() for car in Car.query.all()]
-        print(cars)
         payload = {
             "success": True,
             "cars": cars

@@ -8,7 +8,6 @@ from api.models import Car
 def create_car_resolver(obj, info, title, brand, price, age):
     try:
         car = Car(title=title, brand=brand, price=price, age=age)
-        print(car.to_dict())
         db.session.add(car)
         db.session.commit()
         payload = {
