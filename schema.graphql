@@ -1,0 +1,37 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+
+type Car {
+    id: ID!
+    title: String!
+    brand: String!
+    price: Int!
+    age: Int!
+}
+
+type CarResult {
+    success: Boolean!
+    errors: [String]
+    car: Car
+}
+
+type CarsResult {
+    success: Boolean!
+    errors: [String]
+    cars: [Car]
+}
+
+type Query {
+    listCars: CarsResult!
+    getCar(id: ID!): CarResult!
+}
+
+
+type Mutation {
+    createCar(title: String!, brand: String!, price: Int!, age: Int!): CarResult!
+    updateCar(id: ID!, title: String, brand: String, price: Int, age: Int): CarResult!
+    deleteCar(id: ID): CarResult!
+}
