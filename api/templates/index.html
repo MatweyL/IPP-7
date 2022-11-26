@@ -12,15 +12,15 @@
         <div class="mt-3">
             <h3>Добавить автомобиль</h3>
             <form class="mt-3">
-                <label for="title">Описание</label>
+                <label for="title">title</label>
                 <input type="text" class="form-control" id="title" placeholder="Enter title" required>
-                <label for="brand">Марка</label>
+                <label for="brand">brand</label>
                 <input type="text" class="form-control" id="brand" placeholder="Enter brand" required>
-                <label for="price">Цена</label>
+                <label for="price">price</label>
                 <input type="number" class="form-control" id="price" placeholder="Enter price" min="10000" required>
-                <label for="age">Возраст</label>
+                <label for="age">age</label>
                 <input type="number" class="form-control" id="age" placeholder="Enter age" min="0" step="1" required>
-                <button class="btn btn-primary" onclick="create_car()">Добавить</button>
+                <button class="btn btn-primary mt-3" onclick="create_car()">Добавить</button>
             </form>
         </div>
         <div id="listCars" class="mt-3">
@@ -64,18 +64,59 @@
           })();
         }
 
-        function create_car_field(name, car, type) {
-            car_id = car["id"];
+        function create_car_field(name, car_id, value, type) {
             let root = document.createElement('div');
             let label = document.createElement('label');
             let input = document.createElement('input');
+            if (name == "id") {
+                input.readOnly = true;
+            }
             input.id = name + car_id;
             input.type = type;
+            input.value = value;
             input.className += " form-control"
             input.attributes.required = "required";
-            label.for = input.id;
+            label.for = name + car_id;
+            label.innerText = name;
             root.appendChild(label);
             root.appendChild(input);
+            return root;
+        }
+
+        function create_car_form(car) {
+            let root =  document.createElement('form');
+            root.className += " card card-body mt-3";
+            let id = create_car_field("id", car["id"], car["id"], "text");
+            let title = create_car_field("title", car["id"], car["title"], "text");
+            let brand = create_car_field("brand", car["id"], car["brand"], "text");
+            let price = create_car_field("price", car["id"], car["price"], "number");
+            let age = create_car_field("age", car["id"], car["age"], "number");
+
+            root.appendChild(id);
+            root.appendChild(title);
+            root.appendChild(brand);
+            root.appendChild(price);
+            root.appendChild(age);
+
+            let update_button = document.createElement('button');
+            update_button.innerText = "Обновить";
+            update_button.className += " btn btn-info mt-3";
+            update_button.type = "submit";
+            update_button.addEventListener('click', function(){
+                update_car(car["id"]);
+            });
+            root.appendChild(update_button);
+
+            let delete_button = document.createElement('button');
+            delete_button.innerText = "Удалить";
+            delete_button.className += " btn btn-danger mt-3";
+            delete_button.type = "submit";
+            delete_button.addEventListener('click', function(){
+                delete_car(car["id"]);
+                window.location.reload();
+            });
+            root.appendChild(delete_button);
+
             return root;
         }
 
@@ -146,7 +187,7 @@
         let listCars = document.getElementById('listCars');
         let cars_dict = json.data;
         for (let i = 0; i < cars_dict["listCars"]["cars"].length; i++) {
-            listCars.appendChild(create_car_div(cars_dict["listCars"]["cars"][i]));
+            listCars.appendChild(create_car_form(cars_dict["listCars"]["cars"][i]));
         }
       })();
 
