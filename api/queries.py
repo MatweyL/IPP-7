@@ -3,7 +3,7 @@ from ariadne import convert_kwargs_to_snake_case
 from .models import Car
 
 
-def listCars_resolver(obj, info):
+def list_cars_resolver(obj, info):
     try:
         cars = [car.to_dict() for car in Car.query.all()]
         payload = {
@@ -19,7 +19,7 @@ def listCars_resolver(obj, info):
 
 
 @convert_kwargs_to_snake_case
-def getCar_resolver(obj, info, id):
+def get_car_resolver(obj, info, id):
     try:
         car = Car.query.get(id)
         payload = {

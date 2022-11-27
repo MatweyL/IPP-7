@@ -7,12 +7,12 @@ from flask import request, jsonify
 
 from api import app
 from api.mutations import create_car_resolver, update_car_resolver, delete_car_resolver
-from api.queries import listCars_resolver, getCar_resolver
+from api.queries import list_cars_resolver, get_car_resolver
 
 query = ObjectType("Query")
 mutation = ObjectType("Mutation")
-query.set_field("listCars", listCars_resolver)
-query.set_field("getCar", getCar_resolver)
+query.set_field("listCars", list_cars_resolver)
+query.set_field("getCar", get_car_resolver)
 mutation.set_field("createCar", create_car_resolver)
 mutation.set_field("updateCar", update_car_resolver)
 mutation.set_field("deleteCar", delete_car_resolver)

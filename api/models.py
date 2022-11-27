@@ -22,6 +22,3 @@ class Car(db.Model):
 
 with app.app_context():
     db.create_all()
-    if not db.session.query(Car).get(1) or not db.session.query(Car).all():
-        db.session.add(Car(title=f"Cool car {datetime.datetime.now()}", brand="Mercedes", price=5000000, age=3))
-        db.session.commit()
