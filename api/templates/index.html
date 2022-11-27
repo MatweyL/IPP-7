@@ -86,6 +86,8 @@
         function create_car_form(car) {
             let root =  document.createElement('form');
             root.className += " card card-body mt-3";
+            root.style.width = "18rem";
+            root.style.display = "inline-block";
             let id = create_car_field("id", car["id"], car["id"], "text");
             let title = create_car_field("title", car["id"], car["title"], "text");
             let brand = create_car_field("brand", car["id"], car["brand"], "text");
